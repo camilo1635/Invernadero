@@ -3,10 +3,9 @@
 #include "ThingSpeak.h"
 #include "Sensores.h"
 #include "DHT.h"
-#include <math.h>
 
-const char* ssid = "FLIA_CORREA";
-const char* password = "Yeico1213@#";
+const char* ssid = "TP-LINK_DDAE";
+const char* password = "24890717";
 
 //ThingSpeak
 #define SECRET_CH_ID 2461267    // replace 0000000 with your channel number
@@ -92,7 +91,7 @@ void thingSpeak(){
   float humedad = dht.readHumidity();
   // Read temperature as Celsius (the default)
   float temperatura = dht.readTemperature();
-  int light = analogRead(sensorPin);
+  float light = analogRead(sensorPin);
   
   // set the fields with the values
   ThingSpeak.setField(1, rssi);
@@ -140,26 +139,6 @@ void loopServerWeb() {
             client.println("Content-type:text/html");
             client.println("Connection: close");
             client.println();
-
-            /* turns the GPIOs on and off
-            if (header.indexOf("GET /12/on") >= 0) {
-              Serial.println("GPIO 12 on");
-              output12State = "on";
-              digitalWrite(ventiladorPin, HIGH);
-            } else if (header.indexOf("GET /12/off") >= 0) {
-              Serial.println("GPIO 12 off");
-              output12State = "off";
-              digitalWrite(ventiladorPin, LOW);
-            } else if (header.indexOf("GET /14/on") >= 0) {
-              Serial.println("GPIO 14 on");
-              output14State = "on";
-              digitalWrite(bombaAguaPin, HIGH);
-            } else if (header.indexOf("GET /14/off") >= 0) {
-              Serial.println("GPIO 14 off");
-              output14State = "off";
-              digitalWrite(bombaAguaPin, LOW);
-            }
-            */
 
             // Display the HTML web page
             client.println("<!DOCTYPE html><html>");

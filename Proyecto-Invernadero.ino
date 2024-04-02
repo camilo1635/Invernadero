@@ -16,6 +16,7 @@ AsyncTask Task4(3000, true, FunVentilador);
 void setup()
 {
   internet();
+  setupBluetooth();
   Task1.Start();
   Task2.Start();
   Task3.Start();
@@ -32,5 +33,6 @@ void loop()
   Task4.Update();
   loopServerWeb();
   thingSpeak();
+  loopBluetooth();
 
 }

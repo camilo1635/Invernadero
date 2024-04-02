@@ -6,7 +6,6 @@ void readPhoto() {
   int luz = analogRead(sensorPin);
   Serial.println("hello read Photo: ");
   Serial.println(luz);
-
 }
 
 //Funcion para tomar el valor de la temperatura y humedad
@@ -14,11 +13,7 @@ void readTempHum() {
   Serial.print(millis());
   h = dht.readHumidity();
   t = dht.readTemperature();
-
-  if (isnan(h) || isnan(t)) {
-    Serial.println(F("Failed to read from DHT sensor!"));
-
-  }
+  
   Serial.print("Temperatura: ");
   Serial.print(t);
   Serial.println("°C");
