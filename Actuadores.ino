@@ -7,7 +7,6 @@ Servo servo;
 int pinServo = 34;
 
 int pos = 0;
-int pos2 = 0;
 
 void actuadorSetup() {
   Serial.begin(115200);
@@ -23,8 +22,10 @@ void actuadorSetup() {
 
 //Funcion de operacion de la bomba de agua
 void FunBomba() {
-  if (h < 30) {
+  if (h < valorHumMin) {
     digitalWrite(bombaAguaPin, HIGH);
+    delay(2000);
+    digitalWrite(bombaAguaPin, LOW);
   } else {
     digitalWrite(bombaAguaPin, LOW);
   }
@@ -32,7 +33,7 @@ void FunBomba() {
 
 //Funcion de operacion del ventilador
 void FunVentilador() {
-  if (t > 30) {
+  if (t > valorTemp) {
     digitalWrite(ventiladorPin, HIGH);
   } else {
     digitalWrite(ventiladorPin, LOW);
