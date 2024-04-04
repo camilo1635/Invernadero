@@ -3,12 +3,11 @@
 
 //Funcion para tomar el valor de la luz
 void readPhoto() {
-  int luz = analogRead(sensorLuz);
+  luz = int(map(int(analogRead(sensorLuz)), 0, 4095, 0, 100));
 }
 
 void readHumedadSuelo(){
-  int hs = analogRead(sensorHumSuelo);
-  Serial.println(hs);
+  hs = 100 - int(map(int(analogRead(sensorHumSuelo)), 1840, 4095, 0, 100));
 }
 
 //Funcion para tomar el valor de la temperatura y humedad

@@ -2,27 +2,28 @@
 #include "Sensores.h"
 #include <ESP32Servo.h>
 
-
 Servo servo;
-int pinServo = 34;
+int pinServo = 16;
 
 int pos = 0;
 
 void actuadorSetup() {
   Serial.begin(115200);
 
-  //dispositivos actuadore
+  //dispositivos actuadores
   pinMode(ventiladorPin, OUTPUT);
   pinMode(bombaAguaPin, OUTPUT);
+  pinMode(ledAmarilloPin, OUTPUT);
 
-
+  //digitalWrite(ledAmarilloPin, LOW);
+  
   //Inicializamos la posicion del servo
   servo.attach(pinServo, 500, 2500);
 }
 
 //Funcion de operacion de la bomba de agua
 void FunBomba() {
-  if (h < valorHumMin) {
+  if (hs < valorHumSueloMin) {
     digitalWrite(bombaAguaPin, HIGH);
     delay(2000);
     digitalWrite(bombaAguaPin, LOW);
@@ -33,10 +34,20 @@ void FunBomba() {
 
 //Funcion de operacion del ventilador
 void FunVentilador() {
-  if (t > valorTemp) {
+  if (t > valorTempMax || hs > valorHumSueloMax) {
     digitalWrite(ventiladorPin, HIGH);
+    ServosCerrar();
   } else {
     digitalWrite(ventiladorPin, LOW);
+    ServosAbrir();
+  }
+}
+
+void FunLedAmarillo() {
+  if (luz > valorLuzMax) {
+    digitalWrite(ledAmarilloPin, HIGH);
+  } else {
+    digitalWrite(ledAmarilloPin, LOW);
   }
 }
 
@@ -48,6 +59,7 @@ void ServosAbrir() {
   }
   
 }
+
 // esta funcion cierra las ventanas
 void ServosCerrar() {
   for (pos = 90; pos >= 0; pos -= 1) {
